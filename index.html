@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSG Attendance - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* GIF Implementation Architecture */
+            background-image: linear-gradient(rgba(4, 45, 99, 0.4), rgba(2, 22, 49, 0.6)), url('bg.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 400px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .auth-header h2 {
+            color: #042d63;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 16px;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            outline: none;
+            color: #2d3748;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper input:focus {
+            border-color: #042d63;
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: #042d63;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .auth-btn:hover {
+            background: #021631;
+        }
+
+        .auth-footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .auth-footer a {
+            color: #1565ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+                background-attachment: scroll;
+            }
+            .auth-container {
+                padding: 24px 20px;
+                border-radius: 10px;
+            }
+            .auth-header h2 {
+                font-size: 20px;
+            }
+            .auth-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>SSG ATTENDANCE</h2>
+            <p>Account Sign In Gateway</p>
+        </div>
+
+        <div class="form-group">
+            <label>Username Handle</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" id="loginUsername" placeholder="Enter your username">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Security Password</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" id="loginPassword" placeholder="Enter your password">
+            </div>
+        </div>
+
+        <button class="auth-btn" onclick="login()">Sign In Account</button>
+
+        <div class="auth-footer">
+            Don't have an account? <a href="register.html">Register here</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

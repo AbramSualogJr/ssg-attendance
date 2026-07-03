@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSG Attendance - Register</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* GIF Implementation Architecture */
+            background-image: linear-gradient(rgba(4, 45, 99, 0.4), rgba(2, 22, 49, 0.6)), url('bg.gif');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        .auth-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 420px;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .auth-header h2 {
+            color: #042d63;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .auth-header p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            color: #4a5568;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #a0aec0;
+            font-size: 16px;
+        }
+
+        .input-wrapper input,
+        .input-wrapper select {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            font-size: 15px;
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            outline: none;
+            color: #2d3748;
+            background: white;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-wrapper select {
+            appearance: none;
+            /* Removes native browser down arrows for symmetry */
+            cursor: pointer;
+        }
+
+        .input-wrapper input:focus,
+        .input-wrapper select:focus {
+            border-color: #26c36a;
+        }
+
+        .auth-btn {
+            width: 100%;
+            background: #26c36a;
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s ease;
+        }
+
+        .auth-btn:hover {
+            background: #1e9e54;
+        }
+
+        .auth-footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .auth-footer a {
+            color: #1565ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+                background-attachment: scroll;
+            }
+            .auth-container {
+                padding: 24px 20px;
+                border-radius: 10px;
+            }
+            .auth-header h2 {
+                font-size: 20px;
+            }
+            .auth-btn {
+                padding: 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="auth-header">
+            <h2>CREATE ACCOUNT</h2>
+            <p>System Registration Port</p>
+        </div>
+
+        <div class="form-group">
+            <label>Username Handle</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-user-plus"></i>
+                <input type="text" id="registerUsername" placeholder="Create account username">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Account Assignment Role</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-users-gear"></i>
+                <select id="role">
+                    <option value="Student">Student Access Mode</option>
+                    <option value="Teacher">Teacher / Moderator</option>
+                    <option value="Admin">System Administrator</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Security Password</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-key"></i>
+                <input type="password" id="registerPassword" placeholder="Create account password">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Security Password</label>
+            <div class="input-wrapper">
+                <i class="fa-solid fa-circle-check"></i>
+                <input type="password" id="confirmPassword" placeholder="Verify matching password">
+            </div>
+        </div>
+
+        <button class="auth-btn" onclick="register()">Register New Account</button>
+
+        <div class="auth-footer">
+            Already registered? <a href="index.html">Sign In Here</a>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

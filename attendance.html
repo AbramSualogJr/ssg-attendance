@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Records</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <button class="hamburger-btn" id="hamburgerBtn">&#9776;</button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <div class="sidebar" id="sidebar">
+        <div>
+            <h2>SSG ATTENDANCE</h2>
+            <div class="nav-links">
+                <a href="dashboard.html"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a href="attendance.html" style="background: rgba(255,255,255,0.2);"><i
+                        class="fa-solid fa-clipboard-user"></i> Attendance</a>
+                <a href="events.html"><i class="fa-solid fa-calendar-days"></i> Events</a>
+            </div>
+        </div>
+
+        <div class="sidebar-bottom">
+            <div id="userProfileBox" class="user-profile-box" style="cursor: pointer;"
+                title="Click to edit profile info">
+                <p class="profile-name" id="profileUsername"><i class="fa-solid fa-circle-user"></i> Loading...</p>
+                <span class="profile-role" id="profileRole">Role</span>
+            </div>
+            <a href="index.html" class="logout-btn">
+                <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <h1>Student Attendance Records</h1>
+        <p style="color: #666;">View and manage daily student logs below.</p>
+
+        <div class="roster-header">
+            <div class="roster-title">
+                <h2 id="rosterTitle">All Students</h2>
+                <span id="rosterCount" class="roster-count">0 students</span>
+            </div>
+            <div class="roster-filter">
+                <label for="courseFilter"><i class="fa-solid fa-graduation-cap"></i> View Course Roster:</label>
+                <select id="courseFilter">
+                    <option value="">All Courses</option>
+                    <option value="BSIT">BSIT - BS Information Technology</option>
+                    <option value="BSCS">BSCS - BS Computer Science</option>
+                    <option value="BSBA">BSBA - BS Business Administration</option>
+                    <option value="BSEd">BSEd - BS Education</option>
+                    <option value="BSN">BSN - BS Nursing</option>
+                    <option value="BSCE">BSCE - BS Civil Engineering</option>
+                    <option value="BSEE">BSEE - BS Electrical Engineering</option>
+                    <option value="BSME">BSME - BS Mechanical Engineering</option>
+                    <option value="BSCRIM">BSCRIM - BS Criminology</option>
+                    <option value="BSPSYCH">BSPSYCH - BS Psychology</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="adminStudentToolbar" style="display:none; margin-bottom: 10px;">
+            <button id="openAddStudentBtn" class="action-btn" style="padding: 9px 16px; font-size: 14px;">
+                <i class="fa-solid fa-user-plus"></i> Add Student
+            </button>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Time In</th>
+                        <th>Time Out</th>
+                        <th>Status</th>
+                        <th class="admin-col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceTbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="profileModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-gear"></i> Edit Profile Information</h3>
+                <button id="closeProfileModalBtn" class="modal-close-x">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Username Account Handle</label>
+                    <input type="text" id="editProfileUsername" disabled
+                        style="background: #e9ecef; cursor: not-allowed;">
+                    <small style="color: #888; display: block; margin-top: 4px;">System account IDs cannot be altered
+                        once indexed.</small>
+                </div>
+                <div class="form-group">
+                    <label>Full Display Name</label>
+                    <input type="text" id="editProfileFullName" placeholder="e.g., Juan Dela Cruz">
+                </div>
+                <div class="form-group">
+                    <label>Contact Email Address</label>
+                    <input type="email" id="editProfileEmail" placeholder="username@school.edu.ph">
+                </div>
+                <div class="form-group">
+                    <label>Course / Program</label>
+                    <select id="editProfileCourse">
+                        <option value="">-- Select Course --</option>
+                        <option value="BSIT">BSIT - BS Information Technology</option>
+                        <option value="BSCS">BSCS - BS Computer Science</option>
+                        <option value="BSBA">BSBA - BS Business Administration</option>
+                        <option value="BSEd">BSEd - BS Education</option>
+                        <option value="BSN">BSN - BS Nursing</option>
+                        <option value="BSCE">BSCE - BS Civil Engineering</option>
+                        <option value="BSEE">BSEE - BS Electrical Engineering</option>
+                        <option value="BSME">BSME - BS Mechanical Engineering</option>
+                        <option value="BSCRIM">BSCRIM - BS Criminology</option>
+                        <option value="BSPSYCH">BSPSYCH - BS Psychology</option>
+                    </select>
+                </div>
+                <button id="saveProfileBtn" class="modal-save-btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Student Modal (Admin / Teacher only) -->
+    <div id="editStudentModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-pen"></i> Edit Student Record</h3>
+                <button id="closeEditStudentBtn" class="modal-close-x">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="editStudentIndex">
+                <div class="form-group">
+                    <label>Student ID</label>
+                    <input type="text" id="editStudentId" placeholder="e.g., 2026-0001">
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="editStudentName" placeholder="e.g., Juan Dela Cruz">
+                </div>
+                <div class="form-group">
+                    <label>Course / Program</label>
+                    <select id="editStudentCourse">
+                        <option value="BSIT">BSIT - BS Information Technology</option>
+                        <option value="BSCS">BSCS - BS Computer Science</option>
+                        <option value="BSBA">BSBA - BS Business Administration</option>
+                        <option value="BSEd">BSEd - BS Education</option>
+                        <option value="BSN">BSN - BS Nursing</option>
+                        <option value="BSCE">BSCE - BS Civil Engineering</option>
+                        <option value="BSEE">BSEE - BS Electrical Engineering</option>
+                        <option value="BSME">BSME - BS Mechanical Engineering</option>
+                        <option value="BSCRIM">BSCRIM - BS Criminology</option>
+                        <option value="BSPSYCH">BSPSYCH - BS Psychology</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Time In</label>
+                    <input type="text" id="editStudentLogTime" placeholder="e.g., 07:45 AM">
+                </div>
+                <div class="form-group">
+                    <label>Time Out</label>
+                    <input type="text" id="editStudentLogOutTime" placeholder="e.g., 12:30 PM or ---">
+                </div>
+                <div class="form-group">
+                    <label>Attendance Status</label>
+                    <select id="editStudentStatus">
+                        <option value="Present">Present</option>
+                        <option value="Absent">Absent</option>
+                    </select>
+                </div>
+                <button id="saveEditStudentBtn" class="modal-save-btn">Save Student Record</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Student Modal (Admin / Teacher only) -->
+    <div id="addStudentModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user-plus"></i> Add Student to Roster</h3>
+                <button id="closeAddStudentBtn" class="modal-close-x">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Student ID</label>
+                    <input type="text" id="addStudentId" placeholder="e.g., 2026-0004">
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="addStudentName" placeholder="e.g., Maria Santos">
+                </div>
+                <div class="form-group">
+                    <label>Course / Program</label>
+                    <select id="addStudentCourse">
+                        <option value="">-- Select Course --</option>
+                        <option value="BSIT">BSIT - BS Information Technology</option>
+                        <option value="BSCS">BSCS - BS Computer Science</option>
+                        <option value="BSBA">BSBA - BS Business Administration</option>
+                        <option value="BSEd">BSEd - BS Education</option>
+                        <option value="BSN">BSN - BS Nursing</option>
+                        <option value="BSCE">BSCE - BS Civil Engineering</option>
+                        <option value="BSEE">BSEE - BS Electrical Engineering</option>
+                        <option value="BSME">BSME - BS Mechanical Engineering</option>
+                        <option value="BSCRIM">BSCRIM - BS Criminology</option>
+                        <option value="BSPSYCH">BSPSYCH - BS Psychology</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Attendance Status</label>
+                    <select id="addStudentStatus">
+                        <option value="Absent">Absent</option>
+                        <option value="Present">Present</option>
+                    </select>
+                </div>
+                <button id="saveAddStudentBtn" class="modal-save-btn">Add Student to Roster</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

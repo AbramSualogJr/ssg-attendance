@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+s body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url('bg.gif') center/cover no-repeat;
+    filter: brightness(0.8);
+    z-index: -1;
+}
+
+
+.card {
+    width: 420px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 35px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    filter: brightness(0.85);
+    text-align: center;
+}
+
+
+.logo img {
+    width: 180px;
+}
+
+h1 {
+    font-size: 22px;
+    margin-top: 10px;
+    line-height: 1.4;
+}
+
+.subtitle {
+    margin: 10px 0 25px;
+    color: #777;
+}
+
+.input-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.input-box i {
+    width: 50px;
+    color: #555;
+}
+
+.input-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 14px;
+}
+
+.select-box {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.login-btn,
+.signup-btn {
+    width: 100%;
+    border: none;
+    color: white;
+    padding: 13px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.login-btn {
+    background: #1565ff;
+}
+
+.signup-btn {
+    background: #26c36a;
+}
+
+.bottom-text {
+    margin-top: 15px;
+}
